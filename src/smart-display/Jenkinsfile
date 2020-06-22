@@ -16,7 +16,7 @@ pipeline {
         stage('Build image') {
             steps {
                 script {
-                    dockerImage = docker.build(tag + ":${env.BUILD_ID}", ".")
+                    dockerImage = docker.build(tag + ":${env.BUILD_ID}", "-f src/smart-display/Dockerfile .")
                 }
             }
         }
