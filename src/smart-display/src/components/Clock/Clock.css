@@ -1,0 +1,17 @@
+.clock {
+    font-family: Futura, "Trebuchet MS", Arial, sans-serif;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.clock-time {
+    font-size: 4.5rem;
+    margin-bottom: -0.7rem;
+}
+
+.clock-date {
+    font-size: 1.2rem;
+}

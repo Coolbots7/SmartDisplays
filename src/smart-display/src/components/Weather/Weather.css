@@ -1,0 +1,58 @@
+.weather {
+    color: #FFFFFF;
+    font-weight: 100;
+}
+
+.forecast {
+    display: flex;
+    flex-direction: row;
+}
+
+.weather-day-of-week {
+    text-align: center;
+    padding: 0 0.5rem;
+}
+
+.weather-day-of-week img {
+    max-width: 2.5rem;
+}
+
+.weather-day-of-week .day {   
+    font-size: 1rem;
+}
+
+.weather-day-of-week .date {
+    font-size: 0.9rem;
+}
+
+.weather-day-of-week .temperature {
+    font-size: 0.9rem;
+}
+
+.weather-arc {
+    height: 8rem;
+    width: 8rem;
+    border: 2px solid #FFFFFF;
+    border-radius: 50%;
+    border-bottom-color: transparent;
+}
+
+.weather-current {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-current img {
+    width: 3rem;
+}
+
+.weather-moon-phase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-moon-phase img {
+    width: 2.5rem;
+}
