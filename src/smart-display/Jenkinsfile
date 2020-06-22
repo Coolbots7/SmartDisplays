@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         tag = "smart-displays"
-        registry = "http://registry.cb7.com"
+        registry = "http://192.168.2.70:5000"
         dockerImage = ""
     }
     stages {
