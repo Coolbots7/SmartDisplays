@@ -2,12 +2,16 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
+RUN ["npm", "i", "-g", "serve"]
+
 COPY src/smart-display/package.json ./
 
 RUN ["npm", "install"]
 
 COPY src/smart-display/. .
 
-EXPOSE 3001
+RUN ["npm", "run", "build"]
 
-CMD ["npm", "start"]
+EXPOSE 5000
+
+CMD ["serve", "-s", "build"]
