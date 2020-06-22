@@ -2,11 +2,11 @@ FROM node:12
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
+COPY src/smart-display/package.json ./
 
 RUN ["npm", "install"]
 
-COPY . .
+COPY src/smart-display/. .
 
 EXPOSE 3001
 
