@@ -30,6 +30,11 @@ html, body {
   background-size: cover;
 
 }
+
+.tiny-screen {
+  background-image: url("/background_1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .bold {
