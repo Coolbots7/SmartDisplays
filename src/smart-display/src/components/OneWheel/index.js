@@ -31,7 +31,6 @@ class OneWheel extends React.Component {
         const self = this;
 
         getConnected().then((item) => {
-            console.log("connected", item);
             if(item) {
                 self.setState({
                     connected: item.state === "true"

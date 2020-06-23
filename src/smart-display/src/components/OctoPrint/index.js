@@ -84,7 +84,6 @@ class OctoPrint extends React.Component {
 
         getEstimatedPrintTime().then((item) => {
             if (item) {
-                console.log("estimated print time:", item.state);
                 self.setState({
                     estimatedPrintTime: item.state
                 });

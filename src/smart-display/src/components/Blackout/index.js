@@ -26,7 +26,6 @@ class Blackout extends React.Component {
     update() {
         const self = this;
         getBlackout().then((item) => {
-            console.log(item);
             if (item) {
                 self.setState({
                     blackout: item.state === "OFF"
