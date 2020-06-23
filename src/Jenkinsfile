@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+    environment {
+        frontendTag = "smart-displays"
+        backendTag = "smart-displays-backend"
+        registry = "http://registry.cb7.com"
+        frontendImage = ""
+        backendImage = ""
+    }
+    stages {
+
+        stage('Clone') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Build Frontend image') {
+            steps {
+                script {
+                    frontendImage = docker.build(frontendTag + ":${env.BUILD_ID}", "-f src/smart-display/Dockerfile .")
+                }
+            }
+        }
+
+        stage('Push Frontend image') {
+            steps {
+                script {
+                    docker.withRegistry(registry) {
+                        frontendImage.push("${env.BRANCH_NAME}")
+                    }
+
+                    def CURRENT_TAG = sh(returnStdout: true, script: "git tag -l --points-at HEAD | tail -1").trim()
+                    if (CURRENT_TAG != "") {
+                        docker.withRegistry(registry) {
+                            frontendImage.push("${CURRENT_TAG}")
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build Backend image') {
+            steps {
+                script {
+                    backendImage = docker.build(backendTag + ":${env.BUILD_ID}", "-f src/backend/Dockerfile .")
+                }
+            }
+        }
+
+        stage('Push Backend image') {
+            steps {
+                script {
+                    docker.withRegistry(registry) {
+                        backendImage.push("${env.BRANCH_NAME}")
+                    }
+
+                    def CURRENT_TAG = sh(returnStdout: true, script: "git tag -l --points-at HEAD | tail -1").trim()
+                    if (CURRENT_TAG != "") {
+                        docker.withRegistry(registry) {
+                            backendImage.push("${CURRENT_TAG}")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
