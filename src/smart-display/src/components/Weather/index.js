@@ -90,18 +90,19 @@ class Weather extends React.Component {
 
     render() {
         return (
-            <div className="weather">
-                <div className="mb-3" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <Current />
-                    <MoonPhase />
-                </div>
-
-                {/* <div className="forecast">
+            <div className="card">
+                <div className="card-body">
+                    <div className="d-flex flex-row justify-content-around">
+                        <Current />
+                        <MoonPhase />
+                    </div>
+                    {/* <div className="forecast">
                     {[0, 1, 2, 3, 4].map((i) => {
                         return <WeatherDay idx={i} key={i} />
                     })}
 
                 </div> */}
+                </div>
             </div>
         )
     }

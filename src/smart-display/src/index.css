@@ -41,6 +41,10 @@ html, body {
   font-family: "Futura",Arial,sans-serif;
 }
 
+.text-success {
+  color: #1ab13d !important;
+}
+
 .text-blue {
   color: #007bff;
 }
@@ -62,4 +66,26 @@ html, body {
 small {
   font-family: "Futura Light",Arial,sans-serif;
   font-size: 0.8rem;
+}
+
+.card {
+  font-family: "Futura Light",Arial,sans-serif;
+  color: #fff;
+  background-color: rgb(255, 255, 255, 0.4);
+  font-size: 1.2rem;
+}
+
+.card-header {
+  font-family: "Futura",Arial,sans-serif;
+  color: #fff;
+  border-bottom: #fff solid 0.15rem;
+  margin: 0 0.5rem;
+  padding: 0.25rem 0.25rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.list-group-item {
+  background-color: inherit;
+  padding: 0.25rem 0.75rem;
 }

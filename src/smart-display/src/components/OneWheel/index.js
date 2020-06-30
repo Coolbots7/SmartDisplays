@@ -31,7 +31,7 @@ class OneWheel extends React.Component {
         const self = this;
 
         getConnected().then((item) => {
-            if(item) {
+            if (item) {
                 self.setState({
                     connected: item.state === "true"
                 });
@@ -39,7 +39,7 @@ class OneWheel extends React.Component {
         })
 
         getBatteryRemaining().then((item) => {
-            if(item) {
+            if (item) {
                 self.setState({
                     batteryRemaining: item.state
                 });
@@ -47,22 +47,32 @@ class OneWheel extends React.Component {
         });
 
         getLifetimeOdometer().then((item) => {
-            if(item) {
+            if (item) {
                 self.setState({
                     lifetimeOdometer: item.state
                 });
             }
-        }); 
+        });
     }
 
     render() {
-        const {connected, batteryRemaining, lifetimeOdometer} = this.state;
+        const { connected, batteryRemaining, lifetimeOdometer } = this.state;
 
         return (
-            <div className="d-flex flex-column onewheel h-10">
-                <div>{connected ? <span className="text-success">Connected</span> : <span className="text-danger">Disconnected</span>}</div>
-                <div className="mt-auto">Battery: {batteryRemaining}%</div>
-                <div>Odometer: {lifetimeOdometer}MI</div>
+            <div className="card">
+                <div className="card-header">
+                    OneWheel
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item text-center" style={{fontWeight: 600}}>{connected ? <span className="text-success">Connected</span> : <span className="text-danger">Disconnected</span>}</li>
+
+                    {connected &&
+                        <>
+                            <li class="list-group-item d-flex flex-row justify-content-between"><span>Battery:</span> <span>{batteryRemaining}%</span></li>
+                            <li class="list-group-item d-flex flex-row justify-content-between"><span>Odometer:</span> <span>{lifetimeOdometer}mi</span></li>
+                        </>
+                    }
+                </ul>
             </div>
         );
     }

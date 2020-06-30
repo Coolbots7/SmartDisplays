@@ -63,25 +63,22 @@ class Mail extends React.Component {
         const { total, unread } = this.state;
 
         return (
-            <div className="d-flex flex-column text-white">
-                <div className="bold pl-2" style={{ fontSize: '1.3rem' }}>
+            <div className="card">
+                <div className="card-header">
                     {title}
                 </div>
-
-                {unread !== "NULL" &&
-                    <div className="d-flex flex-row">
-                        <span><i class="fas fa-envelope fa-2x"></i></span>
-                        <span className="bold pl-2" style={{ fontSize: '1.3rem' }}>{unread}</span>
-                    </div>
-                }
-
-                {total !== "NULL" &&
-                    <div className="d-flex flex-row">
-                        <span><i class="fas fa-inbox fa-2x"></i></span>
-                        <span className="bold pl-2" style={{ fontSize: '1.3rem' }}>{total}</span>
-                    </div>
-                }
+                <ul class="list-group list-group-flush">
+                    {unread !== "NULL" &&
+                        // <li class="list-group-item d-flex flex-row justify-content-between"><span><i class="fas fa-envelope"></i></span> <span>{unread}</span></li>
+                        <li class="list-group-item d-flex flex-row justify-content-between"><span>Unread:</span> <span>{unread}</span></li>
+                    }
+                    {total && total !== "NULL" &&
+                        // <li class="list-group-item d-flex flex-row justify-content-between"><span><i class="fas fa-inbox"></i></span> <span>{total}</span></li>
+                        <li class="list-group-item d-flex flex-row justify-content-between"><span>Total:</span> <span>{total}</span></li>
+                    }
+                </ul>
             </div>
+
         );
     }
 };
