@@ -17,7 +17,7 @@ const SmartScreen = () => (
                 </div>
             </div>
             <div className="row mt-auto mb-2 justify-content-between">
-                <div className="col-2 d-flex flex-column">
+                <div className="col-3 d-flex flex-column">
                     <div>
                         <Mail title="Gmail" unreadItem='GmailIMAP_InboxUnread' />
                     </div>
