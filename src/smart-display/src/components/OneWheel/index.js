@@ -20,7 +20,7 @@ class OneWheel extends React.Component {
 
     componentWillMount() {
         this.update();
-        this.interval = setInterval(this.update, 5000);
+        this.interval = setInterval(this.update, 1000);
     }
 
     componentWillUnmount() {
