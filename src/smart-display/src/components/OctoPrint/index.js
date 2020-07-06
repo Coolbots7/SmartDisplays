@@ -99,7 +99,7 @@ class OctoPrint extends React.Component {
             <>
                 {(printerState === "Printing" || printerState === "Finishing" || printerState === "Resuming") &&
                     <div className="card">
-                        <div className="card-header">
+                        <div className="card-header border-none">
                             OctoPrint
                         </div>
                         <img src={`http://192.168.2.63${streamUrl}`} class="card-img-top"></img>
