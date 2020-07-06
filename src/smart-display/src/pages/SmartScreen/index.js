@@ -37,7 +37,7 @@ const SmartScreen = () => (
         </div>
         <div className="position-absolute p-0 m-0" style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
             <div className="row d-flex align-items-center justify-content-center h-100 w-100">
-                <div className="col-3">
+                <div className="col-6">
                     <OctoPrint />
                 </div>
             </div>
