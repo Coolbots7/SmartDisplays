@@ -41,21 +41,25 @@ class Mail extends React.Component {
         const self = this;
         const { unreadItem, totalItem } = this.props;
 
-        getItem(unreadItem).then((item) => {
-            if (item) {
-                self.setState({
-                    unread: item.state
-                });
-            }
-        });
+        if (unreadItem) {
+            getItem(unreadItem).then((item) => {
+                if (item) {
+                    self.setState({
+                        unread: item.state
+                    });
+                }
+            });
+        }
 
-        getItem(totalItem).then((item) => {
-            if (item) {
-                self.setState({
-                    total: item.state
-                });
-            }
-        });
+        if (totalItem) {
+            getItem(totalItem).then((item) => {
+                if (item) {
+                    self.setState({
+                        total: item.state
+                    });
+                }
+            });
+        }
     }
 
     render() {
