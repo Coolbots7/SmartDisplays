@@ -105,7 +105,7 @@ class OctoPrint extends React.Component {
                         <img src={`http://192.168.2.63${streamUrl}`} class="card-img-top"></img>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>State:</span> <span>{printerState}</span></li>
-                            <li class="list-group-item d-flex flex-row justify-content-between"><span>Job:</span> <span>{jobName}</span></li>
+                            <li class="list-group-item d-flex flex-row justify-content-between"><span className="mr-5">Job:</span> <span className="text-truncate">{jobName}</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Progress:</span> <span>{parseFloat(jobProgress).toFixed(1)}%</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Time:</span> <span>{formatSeconds(printTime)}</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Remaining:</span> <span>{printTimeLeft > 0 ? formatSeconds(printTimeLeft)  : "-"}</span></li>
