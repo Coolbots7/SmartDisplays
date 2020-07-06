@@ -1,6 +1,6 @@
 import React from 'react';
 import './OneWheel.css';
-import { getBatteryRemaining, getLifetimeOdometer, getConnected } from '../../utils/onewheel-client';
+import { getBatteryRemaining, getLifetimeOdometer, getConnected, getCharging } from '../../utils/onewheel-client';
 
 class OneWheel extends React.Component {
 
@@ -9,6 +9,7 @@ class OneWheel extends React.Component {
 
         this.state = {
             connected: null,
+            charging: null,
             batteryRemaining: null,
             lifetimeOdometer: null
         }
@@ -36,6 +37,15 @@ class OneWheel extends React.Component {
                     connected: item.state === "true"
                 });
             }
+        });
+
+        getCharging().then((item) => {
+            console.log("charging", item);
+            if (item) {
+                self.setState({
+                    charging: item.state === "true"
+                });
+            }
         })
 
         getBatteryRemaining().then((item) => {
@@ -56,7 +66,7 @@ class OneWheel extends React.Component {
     }
 
     render() {
-        const { connected, batteryRemaining, lifetimeOdometer } = this.state;
+        const { connected, charging, batteryRemaining, lifetimeOdometer } = this.state;
 
         var progressColor = "bg-success";
         if (batteryRemaining < 20) {
@@ -72,22 +82,39 @@ class OneWheel extends React.Component {
                     OneWheel
                 </div>
                 <ul className="list-group list-group-flush">
-                    <li className="list-group-item text-center" style={{ fontWeight: 600 }}>
-                        {connected ? <span className="text-success">Connected</span> : <span className="text-danger">Disconnected</span>}
-
-                        <div class="progress mt-2 mx-3" style={{ height: '0.3rem' }}>
-                            <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </li>
+                    {!connected &&
+                        <li className="list-group-item text-center" style={{ fontWeight: 600 }}>
+                            <span className="text-danger">Disconnected</span>
+                        </li>
+                    }
 
                     {connected &&
                         <>
+                            <li className="list-group-item">
+                                <div className="d-flex flex-row">
+                                    <div className="col-auto">
+                                        {!charging &&
+                                            <i className="fas fa-battery-full text-warning"></i>
+                                        }
+
+                                        {charging &&
+                                            <i className="fas fa-plug text-success blink"></i>
+                                        }
+                                    </div>
+
+                                    <div className="col">
+                                        <div class="progress mt-3" style={{ height: '0.3rem' }}>
+                                            <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Battery:</span> <span>{batteryRemaining}%</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Odometer:</span> <span>{lifetimeOdometer}mi</span></li>
                         </>
                     }
                 </ul>
-            </div>
+            </div >
         );
     }
 }
