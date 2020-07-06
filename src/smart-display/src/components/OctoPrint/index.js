@@ -103,12 +103,15 @@ class OctoPrint extends React.Component {
                             OctoPrint
                         </div>
                         <img src={`http://192.168.2.63${streamUrl}`} class="card-img-top"></img>
+                        <div class="progress mt-2 mx-3" style={{height: '0.5rem'}}>
+                            <div class="progress-bar bg-success" role="progressbar" style={{width: `${parseFloat(jobProgress).toFixed(0)}%`}} aria-valuenow={parseFloat(jobProgress).toFixed(0)} aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>State:</span> <span>{printerState}</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span className="mr-5">Job:</span> <span className="text-truncate">{jobName}</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Progress:</span> <span>{parseFloat(jobProgress).toFixed(1)}%</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Time:</span> <span>{formatSeconds(printTime)}</span></li>
-                            <li class="list-group-item d-flex flex-row justify-content-between"><span>Remaining:</span> <span>{printTimeLeft > 0 ? formatSeconds(printTimeLeft)  : "-"}</span></li>
+                            <li class="list-group-item d-flex flex-row justify-content-between"><span>Remaining:</span> <span>{printTimeLeft > 0 ? formatSeconds(printTimeLeft) : "-"}</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Estimated:</span> <span>{estimatedPrintTime !== 'NULL' ? <>{formatSeconds(estimatedPrintTime)}</> : '-'}</span></li>
                         </ul>
                     </div>
