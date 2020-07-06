@@ -16,7 +16,7 @@ class Blackout extends React.Component {
 
     componentDidMount() {
         this.update();
-        this.interval = setInterval(this.update, 1000);
+        this.interval = setInterval(this.update, 1000*3);
     }
 
     componentWillUnmount() {

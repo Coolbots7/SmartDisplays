@@ -28,7 +28,7 @@ class Mail extends React.Component {
 
     componentDidMount() {
         this.update();
-        this.interval = setInterval(this.update, 1000);
+        this.interval = setInterval(this.update, 1000*10);
     }
 
     componentWillUnmount() {
@@ -72,7 +72,7 @@ class Mail extends React.Component {
                     {title}
                 </div>
                 <ul class="list-group list-group-flush">
-                    {unread !== "NULL" &&
+                    {unread && unread !== "NULL" &&
                         // <li class="list-group-item d-flex flex-row justify-content-between"><span><i class="fas fa-envelope"></i></span> <span>{unread}</span></li>
                         <li class="list-group-item d-flex flex-row justify-content-between"><span>Unread:</span> <span>{unread}</span></li>
                     }
