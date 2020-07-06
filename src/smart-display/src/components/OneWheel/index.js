@@ -58,6 +58,14 @@ class OneWheel extends React.Component {
     render() {
         const { connected, batteryRemaining, lifetimeOdometer } = this.state;
 
+        var progressColor = "bg-success";
+        if (batteryRemaining < 20) {
+            progressColor = "bg-danger";
+        }
+        else if (batteryRemaining < 90) {
+            progressColor = "bg-warning";
+        }
+
         return (
             <div className="card">
                 <div className="card-header">
@@ -68,7 +76,7 @@ class OneWheel extends React.Component {
                         {connected ? <span className="text-success">Connected</span> : <span className="text-danger">Disconnected</span>}
 
                         <div class="progress mt-2 mx-3" style={{ height: '0.3rem' }}>
-                            <div class="progress-bar bg-success" role="progressbar" style={{ width: `${batteryRemaining+1}%` }} aria-valuenow={batteryRemaining+1} aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                     </li>
 
