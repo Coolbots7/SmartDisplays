@@ -63,8 +63,14 @@ class OneWheel extends React.Component {
                 <div className="card-header">
                     OneWheel
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item text-center" style={{fontWeight: 600}}>{connected ? <span className="text-success">Connected</span> : <span className="text-danger">Disconnected</span>}</li>
+                <ul className="list-group list-group-flush">
+                    <li className="list-group-item text-center" style={{ fontWeight: 600 }}>
+                        {connected ? <span className="text-success">Connected</span> : <span className="text-danger">Disconnected</span>}
+
+                        <div class="progress mt-2 mx-3" style={{ height: '0.3rem' }}>
+                            <div class="progress-bar bg-success" role="progressbar" style={{ width: `${batteryRemaining+1}%` }} aria-valuenow={batteryRemaining+1} aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </li>
 
                     {connected &&
                         <>
