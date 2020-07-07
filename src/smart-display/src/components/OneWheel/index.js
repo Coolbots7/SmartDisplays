@@ -92,16 +92,6 @@ class OneWheel extends React.Component {
                         <>
                             <li className="list-group-item">
                                 <div className="d-flex flex-row">
-                                    <div className="col-auto">
-                                        {!charging &&
-                                            <i className="fas fa-battery-full text-warning"></i>
-                                        }
-
-                                        {charging &&
-                                            <i className="fas fa-plug text-success blink"></i>
-                                        }
-                                    </div>
-
                                     <div className="col">
                                         <div class="progress mt-3" style={{ height: '0.3rem' }}>
                                             <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
