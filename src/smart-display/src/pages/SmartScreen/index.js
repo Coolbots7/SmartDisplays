@@ -7,6 +7,7 @@ import Mail from '../../components/Mail';
 import OneWheel from '../../components/OneWheel';
 import Blackout from '../../components/Blackout';
 import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDisturbCard';
+import Phone from '../../components/Phone';
 
 const SmartScreen = () => (
     <>
@@ -31,7 +32,10 @@ const SmartScreen = () => (
                 </div>
                 <div className="col-3 ml-auto d-flex flex-column align-self-end w-100">
                     <div>
-                        <DoNotDisturbCard hideWhenOff={true}/>
+                        <DoNotDisturbCard hideWhenOff={true} />
+                    </div>
+                    <div className="mt-3">
+                        <Phone phoneName="HAL Mobile" batteryItemName="HAL_MOBILEBatteryLevel" />
                     </div>
                     <div className="mt-3">
                         <Weather />
