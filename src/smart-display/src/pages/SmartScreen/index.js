@@ -6,7 +6,7 @@ import Alarm from '../../components/Alarm';
 import Mail from '../../components/Mail';
 import OneWheel from '../../components/OneWheel';
 import Blackout from '../../components/Blackout';
-import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDostirbCard';
+import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDisturbCard';
 
 const SmartScreen = () => (
     <>
