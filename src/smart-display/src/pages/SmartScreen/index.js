@@ -6,6 +6,7 @@ import Alarm from '../../components/Alarm';
 import Mail from '../../components/Mail';
 import OneWheel from '../../components/OneWheel';
 import Blackout from '../../components/Blackout';
+import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDostirbCard';
 
 const SmartScreen = () => (
     <>
@@ -28,8 +29,11 @@ const SmartScreen = () => (
                         <OneWheel />
                     </div>
                 </div>
-                <div className="col-3 ml-auto d-flex">
-                    <div className="align-self-end w-100">
+                <div className="col-3 ml-auto d-flex flex-column align-self-end w-100">
+                    <div>
+                        <DoNotDisturbCard hideWhenOff={true}/>
+                    </div>
+                    <div className="mt-3">
                         <Weather />
                     </div>
                 </div>
