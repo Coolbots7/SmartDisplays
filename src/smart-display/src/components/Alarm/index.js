@@ -45,11 +45,19 @@ class Alarm extends React.Component {
     render() {
         const { alarm } = this.state;
 
+        const now = new Date();
+        const diffHours = (alarm - now) / 1000 / (60 * 60);
+
+        var alarmText = moment(alarm).calendar();
+        if (diffHours <= 12) {
+            alarmText = moment(alarm).fromNow();
+        }
+
         return (
             <>
                 {alarm &&
                     <div className="text-white text-center bold" style={{ fontSize: '1rem' }}>
-                        <span><i className="far fa-clock"></i> {moment(alarm).calendar()}</span>
+                        <span><i className="far fa-clock"></i> {alarmText}</span>
                     </div>
                 }
             </>
