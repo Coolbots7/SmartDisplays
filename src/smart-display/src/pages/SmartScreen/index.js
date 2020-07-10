@@ -8,6 +8,7 @@ import OneWheel from '../../components/OneWheel';
 import Blackout from '../../components/Blackout';
 import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDisturbCard';
 import Phone from '../../components/Phone';
+import NestHub from '../../components/NestHub';
 
 const SmartScreen = () => (
     <>
@@ -44,9 +45,14 @@ const SmartScreen = () => (
             </div>
         </div>
         <div className="position-absolute p-0 m-0" style={{ top: 0, bottom: 0, left: 0, right: 0 }}>
-            <div className="row d-flex align-items-center justify-content-center h-100 w-100">
-                <div className="col-6">
-                    <OctoPrint />
+            <div className="d-flex flex-column align-items-center justify-content-center h-100 w-100">
+                <div className="col-6 d-flex flex-column">
+                    <div>
+                        <OctoPrint />
+                    </div>
+                    <div className="mt-3">
+                        <NestHub />
+                    </div>
                 </div>
             </div>
         </div>
