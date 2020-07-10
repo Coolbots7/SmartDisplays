@@ -115,7 +115,7 @@ class NestHub extends React.Component {
 
         return (
             <>
-                {(app === "Google Play Music" || app === "YouTube") &&
+                {(app === "Google Play Music" || app === "YouTube" || app === "YouTube Music") &&
                     <div className="card">
                         <div className="card-header border-none">
                             Nest Hub
@@ -130,7 +130,7 @@ class NestHub extends React.Component {
                                     <span>{artist} - {album}</span>
                                 </li>
                             }
-                            {app === "YouTube" && 
+                            {(app === "YouTube" || app === "YouTube Music") &&
                                 <li class="list-group-item d-flex flex-row justify-content-center">
                                     <span>{subtitle}</span>
                                 </li>
