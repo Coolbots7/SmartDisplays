@@ -3,7 +3,7 @@ function getItem(name) {
         return response.json();
     })
         .catch((reason) => {
-
+            return null;
         });
 }
 
