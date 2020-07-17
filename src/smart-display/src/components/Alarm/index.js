@@ -55,7 +55,7 @@ class Alarm extends React.Component {
 
         return (
             <>
-                {alarm &&
+                {(alarm && diffHours <= 24) &&
                     <div className="text-white text-center bold" style={{ fontSize: '1rem' }}>
                         <span><i className="far fa-clock"></i> {alarmText}</span>
                     </div>
