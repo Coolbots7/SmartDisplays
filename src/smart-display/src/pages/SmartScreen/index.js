@@ -9,6 +9,7 @@ import Blackout from '../../components/Blackout';
 import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDisturbCard';
 import Phone from '../../components/Phone';
 import NestHub from '../../components/NestHub';
+import Temperature from '../../components/Temperature';
 
 const SmartScreen = () => (
     <>
@@ -40,6 +41,9 @@ const SmartScreen = () => (
                     </div>
                     <div className="mt-3">
                         <Weather />
+                    </div>
+                    <div className="mt-3">
+                        <Temperature header="Bedroom Temp" temperatureItem="BedroomLivingroomDoor_Temperature" isCelsius={false} />
                     </div>
                 </div>
             </div>
