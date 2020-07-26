@@ -40,13 +40,12 @@ class OneWheel extends React.Component {
         });
 
         getCharging().then((item) => {
-            console.log("charging", item);
             if (item) {
                 self.setState({
-                    charging: item.state === "true"
+                    charging: item.state
                 });
             }
-        })
+        });
 
         getBatteryRemaining().then((item) => {
             if (item) {
@@ -76,6 +75,27 @@ class OneWheel extends React.Component {
             progressColor = "bg-warning";
         }
 
+        var chargingIcon = null;
+        if (charging) {
+            if (charging === "true") {
+                chargingIcon = <i className="fas fa-plug"></i>;
+            }
+            else {
+                if(batteryRemaining <= 20) {
+                    chargingIcon = <i className="fas fa-battery-quarter"></i>;
+                }
+                else if(batteryRemaining > 20 && batteryRemaining <= 50) {
+                    chargingIcon = <i className="fas fa-battery-half"></i>;
+                }
+                else if(batteryRemaining > 50 && batteryRemaining < 75) {
+                    chargingIcon = <i className="fas fa-battery-three-quarters"></i>;
+                }
+                else {
+                    chargingIcon = <i className="fas fa-battery-full"></i>;
+                }
+            }
+        }
+
         return (
             <div className="card">
                 <div className="card-header">
@@ -92,6 +112,9 @@ class OneWheel extends React.Component {
                         <>
                             <li className="list-group-item">
                                 <div className="d-flex flex-row">
+                                    <div className="col-auto mt-1">
+                                        {chargingIcon}
+                                    </div>
                                     <div className="col">
                                         <div class="progress mt-3" style={{ height: '0.3rem' }}>
                                             <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
