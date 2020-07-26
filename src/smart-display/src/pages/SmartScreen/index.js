@@ -29,7 +29,11 @@ const SmartScreen = () => (
                         <Mail title="JPL Email" unreadItem='JPLIMAP_InboxUnread' />
                     </div>
                     <div className="mt-3">
-                        <OneWheel />
+                        <OneWheel
+                            connectedItemName="OneWheel_Connected"
+                            chargingItemName="OneWheel_Charging"
+                            batteryRemainingItemName="OneWheel_Battery_Remaining"
+                            lifetimeOdometerItemName="OneWheel_Lifetime_Odometer" />
                     </div>
                 </div>
                 <div className="col-3 ml-auto d-flex flex-column align-self-end w-100">
@@ -44,9 +48,9 @@ const SmartScreen = () => (
                     </div>
                     <div className="mt-3">
                         <Phone
-                        phoneName="S7"
-                        batteryItemName="S7_BatteryLevel"
-                        chargingItemName="S7_ChargingState" />
+                            phoneName="S7"
+                            batteryItemName="S7_BatteryLevel"
+                            chargingItemName="S7_ChargingState" />
                     </div>
                     <div className="mt-3">
                         <Weather />

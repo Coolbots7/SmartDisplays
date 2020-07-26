@@ -1,8 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './OneWheel.css';
-import { getBatteryRemaining, getLifetimeOdometer, getConnected, getCharging } from '../../utils/onewheel-client';
+import { getItem } from '../../utils/openhab-client';
 
 class OneWheel extends React.Component {
+    static propTypes = {
+        connectedItemName: PropTypes.string.isRequired,
+        chargingItemName: PropTypes.string,
+        batteryRemainingItemName: PropTypes.string,
+        lifetimeOdometerItemName: PropTypes.string
+    }
+
+    static defaultProps = {
+        chargingItemName: null,
+        batteryRemainingItemName: null,
+        lifetimeOdometerItemName: null
+    }
 
     constructor(props) {
         super(props);
@@ -30,42 +43,52 @@ class OneWheel extends React.Component {
 
     update() {
         const self = this;
+        const { connectedItemName, chargingItemName, batteryRemainingItemName, lifetimeOdometerItemName } = this.props;
 
-        getConnected().then((item) => {
-            if (item) {
-                self.setState({
-                    connected: item.state === "true"
-                });
-            }
-        });
+        if (connectedItemName) {
+            getItem(connectedItemName).then((item) => {
+                if (item) {
+                    self.setState({
+                        connected: item.state === "true"
+                    });
+                }
+            });
+        }
 
-        getCharging().then((item) => {
-            if (item) {
-                self.setState({
-                    charging: item.state
-                });
-            }
-        });
+        if (chargingItemName) {
+            getItem(chargingItemName).then((item) => {
+                if (item) {
+                    self.setState({
+                        charging: item.state
+                    });
+                }
+            });
+        }
 
-        getBatteryRemaining().then((item) => {
-            if (item) {
-                self.setState({
-                    batteryRemaining: item.state
-                });
-            }
-        });
+        if (batteryRemainingItemName) {
+            getItem(batteryRemainingItemName).then((item) => {
+                if (item) {
+                    self.setState({
+                        batteryRemaining: item.state
+                    });
+                }
+            });
+        }
 
-        getLifetimeOdometer().then((item) => {
-            if (item) {
-                self.setState({
-                    lifetimeOdometer: item.state
-                });
-            }
-        });
+        if (lifetimeOdometerItemName) {
+            getItem(lifetimeOdometerItemName).then((item) => {
+                if (item) {
+                    self.setState({
+                        lifetimeOdometer: item.state
+                    });
+                }
+            })
+        }
     }
 
     render() {
         const { connected, charging, batteryRemaining, lifetimeOdometer } = this.state;
+        const { chargingItemName, batteryRemainingItemName, lifetimeOdometerItemName } = this.props;
 
         var progressColor = null;
         if (batteryRemaining) {
@@ -86,13 +109,13 @@ class OneWheel extends React.Component {
                 chargingIcon = <i className="fas fa-plug"></i>;
             }
             else {
-                if(batteryRemaining <= 20) {
+                if (batteryRemaining <= 20) {
                     chargingIcon = <i className="fas fa-battery-quarter"></i>;
                 }
-                else if(batteryRemaining > 20 && batteryRemaining <= 50) {
+                else if (batteryRemaining > 20 && batteryRemaining <= 50) {
                     chargingIcon = <i className="fas fa-battery-half"></i>;
                 }
-                else if(batteryRemaining > 50 && batteryRemaining < 75) {
+                else if (batteryRemaining > 50 && batteryRemaining < 75) {
                     chargingIcon = <i className="fas fa-battery-three-quarters"></i>;
                 }
                 else {
@@ -115,22 +138,33 @@ class OneWheel extends React.Component {
 
                     {connected &&
                         <>
-                            <li className="list-group-item">
-                                <div className="d-flex flex-row">
-                                    <div className="col-auto mt-1">
-                                        {chargingIcon}
+                            {(chargingItemName || batteryRemainingItemName) &&
+                                <li className="list-group-item">
+                                    <div className="d-flex flex-row">
+                                        {chargingItemName &&
+                                            <div className="col-auto mt-1">
+                                                {chargingIcon}
+                                            </div>
+                                        }
+                                        {batteryRemainingItemName &&
+                                            <>
+                                                <div className="col">
+                                                    <div class="progress mt-3" style={{ height: '0.3rem' }}>
+                                                        <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
+                                                    </div>
+                                                </div>
+                                                <div className="col-auto">
+                                                    <span>{batteryRemaining}%</span>
+                                                </div>
+                                            </>
+                                        }
                                     </div>
-                                    <div className="col">
-                                        <div class="progress mt-3" style={{ height: '0.3rem' }}>
-                                            <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                    <div className="col-auto">
-                                        <span>{batteryRemaining}%</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="list-group-item d-flex flex-row justify-content-between"><span>Odometer:</span> <span>{lifetimeOdometer}mi</span></li>
+                                </li>
+                            }
+
+                            {lifetimeOdometerItemName &&
+                                <li class="list-group-item d-flex flex-row justify-content-between"><span>Odometer:</span> <span>{lifetimeOdometer}mi</span></li>
+                            }
                         </>
                     }
                 </ul>
