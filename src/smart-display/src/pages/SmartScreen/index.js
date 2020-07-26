@@ -37,7 +37,18 @@ const SmartScreen = () => (
                         <DoNotDisturbCard hideWhenOff={true} />
                     </div>
                     <div className="mt-3">
-                        <Phone phoneName="HAL Mobile" batteryItemName="HAL_MOBILEBatteryLevel" />
+                        <Phone
+                            phoneName="HAL Mobile"
+                            batteryItemName="HAL_MOBILEBatteryLevel"
+                            chargingItemName="HAL_MOBILEChargingState"
+                            showChargingRow={true}
+                            showChargingIcon={true} />
+                    </div>
+                    <div className="mt-3">
+                        <Phone
+                        phoneName="S7"
+                        batteryItemName="S7_BatteryLevel"
+                        showChargingRow={true} />
                     </div>
                     <div className="mt-3">
                         <Weather />
