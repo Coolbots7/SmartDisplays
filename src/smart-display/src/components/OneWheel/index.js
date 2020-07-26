@@ -67,12 +67,17 @@ class OneWheel extends React.Component {
     render() {
         const { connected, charging, batteryRemaining, lifetimeOdometer } = this.state;
 
-        var progressColor = "bg-success";
-        if (batteryRemaining < 20) {
-            progressColor = "bg-danger";
-        }
-        else if (batteryRemaining < 90) {
-            progressColor = "bg-warning";
+        var progressColor = null;
+        if (batteryRemaining) {
+            if (batteryRemaining < 20) {
+                progressColor = "bg-danger";
+            }
+            else if (batteryRemaining < 90) {
+                progressColor = "bg-warning";
+            }
+            else {
+                progressColor = "bg-success";
+            }
         }
 
         var chargingIcon = null;
