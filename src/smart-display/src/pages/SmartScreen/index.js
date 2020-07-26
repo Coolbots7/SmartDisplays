@@ -40,15 +40,13 @@ const SmartScreen = () => (
                         <Phone
                             phoneName="HAL Mobile"
                             batteryItemName="HAL_MOBILEBatteryLevel"
-                            chargingItemName="HAL_MOBILEChargingState"
-                            showChargingRow={true}
-                            showChargingIcon={true} />
+                            chargingItemName="HAL_MOBILEChargingState" />
                     </div>
                     <div className="mt-3">
                         <Phone
                         phoneName="S7"
                         batteryItemName="S7_BatteryLevel"
-                        showChargingRow={true} />
+                        chargingItemName="S7_ChargingState" />
                     </div>
                     <div className="mt-3">
                         <Weather />

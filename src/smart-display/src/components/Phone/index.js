@@ -131,6 +131,33 @@ class Phone extends React.Component {
             }
         }
 
+        var chargingIcon = null;
+        if (chargingItemName) {
+            if (charging === "UNDEF") {
+                if (battery <= 20) {
+                    chargingIcon = <i className="fas fa-battery-quarter"></i>;
+                }
+                else if (battery > 20 && battery <= 50) {
+                    chargingIcon = <i className="fas fa-battery-half"></i>;
+                }
+                else if (battery > 50 && battery <= 75) {
+                    chargingIcon = <i className="fas fa-battery-three-quarters"></i>;
+                }
+                else {
+                    chargingIcon = <i className="fas fa-battery-full"></i>;
+                }
+            }
+            else if (charging === "USB") {
+                chargingIcon = <i className="fab fa-usb"></i>;
+            }
+            else if (charging === "AC" || charging === "UNKNOWN_CHARGER") {
+                chargingIcon = <i className="fas fa-plug"></i>;
+            }
+            else if (charging === "WIRELESS") {
+                chargingIcon = <i className="fas fa-wifi"></i>;
+            }
+        }
+
         return (
             <div className="card">
                 <div className="card-header">
@@ -138,28 +165,22 @@ class Phone extends React.Component {
                 </div>
                 <ul className="list-group list-group-flush">
                     {batteryItemName &&
-                        <>
-                            <li className="list-group-item">
-                                <div className="d-flex flex-row">
-                                    <div className="col">
-                                        <div class="progress mt-3" style={{ height: '0.3rem' }}>
-                                            <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${battery}%` }} aria-valuenow={battery} aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                        <li className="list-group-item">
+                            <div className="d-flex flex-row">
+                                {chargingItemName &&
+                                    <div className="col-auto mt-1">
+                                        {chargingIcon}
+                                    </div>
+                                }
+                                <div className="col">
+                                    <div className="progress mt-3" style={{ height: '0.3rem' }}>
+                                        <div className={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${battery}%` }} aria-valuenow={battery} aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
-                            </li>
-                            <li className="list-group-item d-flex flex-row justify-content-between">
-                                <span>Battery</span>
-                                {/* TODO colored progress bar? */}
-                                <span>{battery}%</span>
-                            </li>
-                        </>
-                    }
-
-                    {chargingItemName &&
-                        <li className="list-group-item d-flex flex-row justify-content-between">
-                            <span>Charging</span>
-                            <span>{charging !== "UNDEF" ? charging : "Unplugged"}</span>
+                                <div className="col-auto">
+                                    <span>{battery}%</span>
+                                </div>
+                            </div>
                         </li>
                     }
 
