@@ -97,9 +97,11 @@ class OneWheel extends React.Component {
                                             <div class={`progress-bar ${progressColor}`} role="progressbar" style={{ width: `${batteryRemaining}%` }} aria-valuenow={batteryRemaining} aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
+                                    <div className="col-auto">
+                                        <span>{batteryRemaining}%</span>
+                                    </div>
                                 </div>
                             </li>
-                            <li class="list-group-item d-flex flex-row justify-content-between"><span>Battery:</span> <span>{batteryRemaining}%</span></li>
                             <li class="list-group-item d-flex flex-row justify-content-between"><span>Odometer:</span> <span>{lifetimeOdometer}mi</span></li>
                         </>
                     }
