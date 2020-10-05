@@ -35,37 +35,37 @@ class Current extends React.Component {
     update() {
         const self = this;
 
-        getCurrentTemperature().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    temperature: Math.round(parseFloat(item.state.match(/\d+\.\d+/)))
-                });
-            }
-        });
+        // getCurrentTemperature().then((item) => {
+        //     if (item && item.hasOwnProperty("state")) {
+        //         self.setState({
+        //             temperature: Math.round(parseFloat(item.state.match(/\d+\.\d+/)))
+        //         });
+        //     }
+        // });
 
-        getCurrentRain().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    rain: Math.round(parseFloat(item.state.match(/\d+\.\d+/)))
-                });
-            }
-        });
+        // getCurrentRain().then((item) => {
+        //     if (item && item.hasOwnProperty("state")) {
+        //         self.setState({
+        //             rain: Math.round(parseFloat(item.state.match(/\d+\.\d+/)))
+        //         });
+        //     }
+        // });
 
-        getCurrentWindSpeed().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    wind: Math.round(KMPHToMPH(parseFloat(item.state.match(/\d+\.\d+/))))
-                });
-            }
-        });
+        // getCurrentWindSpeed().then((item) => {
+        //     if (item && item.hasOwnProperty("state")) {
+        //         self.setState({
+        //             wind: Math.round(KMPHToMPH(parseFloat(item.state.match(/\d+\.\d+/))))
+        //         });
+        //     }
+        // });
 
-        getCurrentWeatherCondition().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    weather_condition: item.state
-                });
-            }
-        });
+        // getCurrentWeatherCondition().then((item) => {
+        //     if (item && item.hasOwnProperty("state")) {
+        //         self.setState({
+        //             weather_condition: item.state
+        //         });
+        //     }
+        // });
     }
 
     render() {

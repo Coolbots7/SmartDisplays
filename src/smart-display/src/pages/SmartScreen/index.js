@@ -1,6 +1,5 @@
 import React from 'react';
 import Clock from '../../components/Clock';
-import Weather from '../../components/Weather';
 import OctoPrint from '../../components/OctoPrint';
 import Alarm from '../../components/Alarm';
 import Mail from '../../components/Mail';
@@ -10,6 +9,7 @@ import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDisturbCard';
 import Phone from '../../components/Phone';
 import NestHub from '../../components/NestHub';
 import Temperature from '../../components/Temperature';
+import { DailyForecast, WeatherCard } from '../../components/Weather';
 
 const SmartScreen = () => (
     <>
@@ -36,7 +36,7 @@ const SmartScreen = () => (
                             lifetimeOdometerItemName="OneWheel_Lifetime_Odometer" />
                     </div>
                 </div>
-                <div className="col-3 ml-auto d-flex flex-column align-self-end w-100">
+                <div className="col-4 ml-auto d-flex flex-column align-self-end w-100">
                     <div>
                         <DoNotDisturbCard hideWhenOff={true} />
                     </div>
@@ -53,7 +53,9 @@ const SmartScreen = () => (
                             chargingItemName="S7_ChargingState" />
                     </div>
                     <div className="mt-3">
-                        <Weather />
+                        <WeatherCard lat="34.1443" lon="-118.0019" units="imperial">
+                            <DailyForecast days={5} includeToday={false} />
+                        </WeatherCard>
                     </div>
                     <div className="mt-3">
                         <Temperature header="Bedroom Temp" temperatureItem="BedroomLivingroomDoor_Temperature" isCelsius={false} />

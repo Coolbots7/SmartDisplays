@@ -26,13 +26,13 @@ class MoonPhase extends React.Component {
 
     update() {
         const self = this;
-        getMoonPhase().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    phase: item.state
-                });
-            }
-        });
+        // getMoonPhase().then((item) => {
+        //     if (item && item.hasOwnProperty("state")) {
+        //         self.setState({
+        //             phase: item.state
+        //         });
+        //     }
+        // });
     }
 
     render() {
