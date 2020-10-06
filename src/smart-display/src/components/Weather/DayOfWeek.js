@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { getOpenWeatherMapData } from '../../utils/weather-client';
 
+//TODO add midday UVI
 class DayOfWeek extends React.Component {
     static propTypes = {
         date: PropTypes.object.isRequired,
@@ -50,8 +51,7 @@ class DayOfWeek extends React.Component {
         const now = new Date();
         const day = moment().add(dayIndex, 'days');
 
-        const hours = now.getHours();
-        const night = hours >= 12;
+        const night = now.getHours() >= 12;
 
         var day_string = day.format("ddd");
 
@@ -61,37 +61,27 @@ class DayOfWeek extends React.Component {
 
         var date_string = day.format("MMM D");
 
-
         //Get day data
-        var high = null;
-        var low = null;
-        var icon = null;
         if (data) {
             //get day weather forecast from weather data
-            // high = data.daily[dayIndex].temp.max;
-            // low = data.daily[dayIndex].temp.min;
-            high = data.daily[dayIndex].feels_like.day;
-            low = data.daily[dayIndex].feels_like.night;
-            icon = data.daily[dayIndex].weather[0].icon;
+            //const high = data.daily[dayIndex].temp.max;
+            //const low = data.daily[dayIndex].temp.min;
+            const high = data.daily[dayIndex].feels_like.day;
+            const low = data.daily[dayIndex].feels_like.night;
+            const icon = data.daily[dayIndex].weather[0].icon;
 
-            if (night) {
-                icon = icon.replace('d', 'n');
-            }
+            return (
+                <div className="weather-day-of-week">
+                    <div className="day bold">{day_string}</div>
+                    <div className="date">{date_string}</div>
+                    <div><img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather" /></div>
+                    <div className="temperature bold">{Math.round(high)}&deg;</div>
+                    <div className="temperature">{Math.round(low)}&deg;</div>
+                </div>
+            );
         }
 
-        return (
-            <>
-                {data &&
-                    <div className="weather-day-of-week">
-                        <div className="day bold">{day_string}</div>
-                        <div className="date">{date_string}</div>
-                        <div><img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather" /></div>
-                        <div className="temperature bold">{Math.round(high)}&deg;</div>
-                        <div className="temperature">{Math.round(low)}&deg;</div>
-                    </div>
-                }
-            </>
-        );
+        return <div style={{width: '2rem'}}></div>;
     }
 };
 
