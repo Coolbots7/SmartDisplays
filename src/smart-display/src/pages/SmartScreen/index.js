@@ -58,9 +58,6 @@ const SmartScreen = () => (
                             <DailyForecast days={5} includeToday={false} />
                         </WeatherCard>
                     </div>
-                    <div className="mt-3">
-                        <Temperature header="Bedroom Temp" temperatureItem="BedroomLivingroomDoor_Temperature" isCelsius={false} />
-                    </div>
                 </div>
             </div>
         </div>
