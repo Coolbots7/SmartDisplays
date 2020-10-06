@@ -9,7 +9,7 @@ import DoNotDisturbCard from '../../components/DoNotDisturb/DoNotDisturbCard';
 import Phone from '../../components/Phone';
 import NestHub from '../../components/NestHub';
 import Temperature from '../../components/Temperature';
-import { DailyForecast, WeatherCard } from '../../components/Weather';
+import { CurrentWeather, DailyForecast, WeatherCard } from '../../components/Weather';
 
 const SmartScreen = () => (
     <>
@@ -54,6 +54,7 @@ const SmartScreen = () => (
                     </div>
                     <div className="mt-3">
                         <WeatherCard lat="34.1443" lon="-118.0019" units="imperial">
+                            <CurrentWeather />
                             <DailyForecast days={5} includeToday={false} />
                         </WeatherCard>
                     </div>

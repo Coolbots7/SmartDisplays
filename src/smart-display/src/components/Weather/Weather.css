@@ -3,9 +3,42 @@
     font-weight: 100;
 }
 
+.weather-label-primary {
+    color: #FFF;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.weather-label-secondary {
+    color: #FFF;
+    font-size: 1rem;
+}
+
+.weather-value-large {
+    color: #FFF;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.weather-value-primary {
+    color: #FFF;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.weather-value-secondary {
+    color: #FFF;
+    font-size: 1.1rem;
+}
+
+.weather-value-label {
+    font-size: 0.6rem;
+}
+
 .forecast {
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
 }
 
 .weather-day-of-week {

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Weather.css';
-import moment from 'moment';
 import DayOfWeek from './DayOfWeek';
 import Current from './Current';
 import MoonPhase from './MoonPhase';
@@ -40,20 +39,21 @@ WeatherCard.defaultProps = {
 
 // };
 
-// const CurrentWeather = (props) => {
-//     const { units } = props;
+const CurrentWeather = (props) => {
+    const { lat, lon, units } = props;
 
-//     return (
-//         <div className="d-flex flex-row justify-content-around">
-//             {/* <Current units={units} />
-//             <MoonPhase /> */}
-//         </div>
-//     );
-// };
+    return (
+        <div className="d-flex flex-row justify-content-around mb-3">
+            <Current lat={lat} lon={lon} units={units} />
+        </div>
+    );
+};
 
-// CurrentWeather.propTypes = {
-//     units: PropTypes.string.isRequired
-// };
+CurrentWeather.propTypes = {
+    lat: PropTypes.string.isRequired,
+    lon: PropTypes.string.isRequired,
+    units: PropTypes.string.isRequired
+};
 
 // const HourlyForecast = () => {
 
@@ -89,9 +89,9 @@ DailyForecast.defaultProps = {
 };
 
 export {
-    WeatherCard, 
+    WeatherCard,
     // SunriseSunsetBar,
-    //  CurrentWeather, 
+    CurrentWeather,
     //  HourlyForecast, 
     DailyForecast
 };
