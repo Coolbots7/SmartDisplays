@@ -1,20 +1,14 @@
 import React from 'react';
-import sun from './icons/weather/32.png';
-import { getCurrentTemperature, getCurrentRain, getCurrentWindSpeed, getCurrentWeatherCondition } from '../../utils/weather-client';
-import { getIconFromWeatherCondition } from './weather-icon-util';
-import { CelsiusToFahrenheit, KMPHToMPH } from './conversion-utils';
-import Drop from './icons/weather/drop.png';
-import Wind from './icons/weather/24.png';
+import { getOpenWeatherMapData } from '../../utils/weather-client';
+import { getUVIColor, getUVIDescription } from './utils/uvi-util';
+import { degreesToCompass, invertDirection } from './utils/wind-util';
 
 class Current extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            temperature: null,
-            rain: null,
-            wind: null,
-            weather_condition: null
+            data: null
         };
 
         this.interval = null;
@@ -34,70 +28,61 @@ class Current extends React.Component {
 
     update() {
         const self = this;
+        const { lat, lon, units } = this.props;
 
-        getCurrentTemperature().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    temperature: Math.round(parseFloat(item.state.match(/\d+\.\d+/)))
-                });
-            }
-        });
-
-        getCurrentRain().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    rain: Math.round(parseFloat(item.state.match(/\d+\.\d+/)))
-                });
-            }
-        });
-
-        getCurrentWindSpeed().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    wind: Math.round(KMPHToMPH(parseFloat(item.state.match(/\d+\.\d+/))))
-                });
-            }
-        });
-
-        getCurrentWeatherCondition().then((item) => {
-            if (item && item.hasOwnProperty("state")) {
-                self.setState({
-                    weather_condition: item.state
-                });
-            }
+        //get weather data
+        getOpenWeatherMapData(lat, lon, units).then((data) => {
+            console.log(data);
+            self.setState({
+                data
+            });
         });
     }
 
     render() {
-        const { temperature, rain, wind, weather_condition } = this.state;
+        const { units } = this.props;
+        const { data } = this.state;
 
-        const now = new Date();
-        const hours = now.getHours();
-        const night = hours < 6 || hours >= 18;
+        if (data) {
+            const icon = data.current.weather[0].icon;
+            const rain = data.hourly[0].pop;
+            const wind = data.current.wind_speed;
+            const wind_deg = data.current.wind_deg;
+            const temperature = data.current.feels_like;
+            const uvi = data.current.uvi;
+            const humidity = data.current.humidity;
 
-        return (
-            <div className="weather-current">
-
-                <div className="" style={{ display: 'flex', flexDirection: 'row' }}>
-                    <div className="" style={{ marginTop: 'auto', marginBottom: 'auto' }}>
-                        <img src={getIconFromWeatherCondition(weather_condition, night)} alt="weather" />
-                    </div>
-                    <div className="" style={{ display: 'flex', flexDirection: 'column', borderLeft: '1px solid #FFFFFF', paddingLeft: '5px' }}>
-                        <div className="bold" style={{ fontSize: '1.5rem' }}>{temperature}&deg;</div>
-                        <div className="d-flex flex-row">
-                            <div className="d-flex flex-column mr-2">
-                                <img src={Drop} style={{ width: '0.8rem' }} className="ml-auto" />
-                                <img src={Wind} style={{ width: '1.2rem' }} />
+            return (
+                <div className="weather-current w-100">
+                    <div className="d-flex flex-column w-100">
+                        <div className="d-flex flex-row justify-content-center mb-2">
+                            <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather" />
+                            <span className="weather-value-large my-auto">{Math.round(temperature)}&deg;</span>
+                        </div>
+                        <div className="d-flex flex-row justify-content-around">
+                            <div className="d-flex flex-column text-center">
+                                <span className="weather-label-primary">UVI</span>
+                                <span className="weather-value-secondary" style={{ color: getUVIColor(uvi) }}>{Math.round(uvi)} {getUVIDescription(uvi)}</span>
                             </div>
-                            <div className="d-flex flex-column">
-                                <div>{rain}<small style={{ fontSize: '0.6rem' }}>%</small></div>
-                                <div>{wind}<small style={{ fontSize: '0.6rem' }}>MPH</small></div>
+                            <div className="d-flex flex-column text-center">
+                                <span className="weather-label-primary">Rain</span>
+                                <span className="weather-value-secondary">{Math.round(rain)}<small className="weather-value-label">%</small></span>
+                            </div>
+                            <div className="d-flex flex-column text-center">
+                                <span className="weather-label-primary">Wind</span>
+                                <span className="weather-value-secondary">{Math.round(wind)}<small className="weather-value-label">MPH</small> {degreesToCompass(invertDirection(wind_deg))}</span>
+                            </div>
+                            <div className="d-flex flex-column text-center">
+                                <span className="weather-label-primary">Hum</span>
+                                <span className="weather-value-secondary">{humidity}<small className="weather-value-label">%</small></span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            );
+        }
+
+        return null;
     }
 
 };
