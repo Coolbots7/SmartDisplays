@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getItem } from '../../utils/openhab-client';
 
 const timeCode = (seconds) => {
@@ -10,11 +11,29 @@ const timeCode = (seconds) => {
 }
 
 class NestHub extends React.Component {
+    static propTypes = {
+        appItemName: PropTypes.string,
+        mediaTypeItemName: PropTypes.string,
+        currentTimeItemName: PropTypes.string,
+        durationItemName: PropTypes.string,
+        albumNameItemName: PropTypes.string,
+        mediaArtistItemName: PropTypes.string,
+        imageURLItemName: PropTypes.string,
+        mediaTitleItemName: PropTypes.string,
+        subtitleItemName: PropTypes.string,
+        updateInterval: PropTypes.number
+    };
+
+    static defaultProps = {
+        updateInterval: 1000
+    };
+
     constructor(props) {
         super(props);
 
         this.state = {
             app: null,
+            mediaType: null,
             currentTime: null,
             duration: null,
             album: null,
@@ -30,8 +49,10 @@ class NestHub extends React.Component {
     }
 
     componentDidMount() {
+        const { updateInterval } = this.props;
+
         this.update();
-        this.interval = setInterval(this.update, 1000);
+        this.interval = setInterval(this.update, updateInterval);
     }
 
     componentWillUnmount() {
@@ -40,8 +61,9 @@ class NestHub extends React.Component {
 
     update() {
         const self = this;
+        const { appItemName, mediaTypeItemName, currentTimeItemName, durationItemName, albumNameItemName, mediaArtistItemName, imageURLItemName, mediaTitleItemName, subtitleItemName } = this.props;
 
-        getItem('BedroomGoogleHub_App').then((item) => {
+        getItem(appItemName).then((item) => {
             if (item) {
                 self.setState({
                     app: item.state
@@ -49,23 +71,31 @@ class NestHub extends React.Component {
             }
         });
 
-        getItem('BedroomGoogleHub_CurrentTime').then((item) => {
-            if (item) {
+        getItem(mediaTypeItemName).then((item) => {
+            if(item) {
                 self.setState({
-                    currentTime: item.state
+                    mediaType: item.state
                 });
             }
         });
 
-        getItem('BedroomGoogleHub_Duration').then((item) => {
+        getItem(currentTimeItemName).then((item) => {
             if (item) {
                 self.setState({
-                    duration: item.state
+                    currentTime: parseInt(item.state)
                 });
             }
         });
 
-        getItem('BedroomGoogleHub_AlbumName').then((item) => {
+        getItem(durationItemName).then((item) => {
+            if (item) {
+                self.setState({
+                    duration: parseInt(item.state)
+                });
+            }
+        });
+
+        getItem(albumNameItemName).then((item) => {
             if (item) {
                 self.setState({
                     album: item.state
@@ -73,7 +103,7 @@ class NestHub extends React.Component {
             }
         });
 
-        getItem('BedroomGoogleHub_MediaArtist').then((item) => {
+        getItem(mediaArtistItemName).then((item) => {
             if (item) {
                 self.setState({
                     artist: item.state
@@ -81,15 +111,20 @@ class NestHub extends React.Component {
             }
         });
 
-        getItem('BedroomGoogleHub_ImageURL').then((item) => {
-            if (item) {
+        getItem(imageURLItemName).then((item) => {
+            if (item && item.state !== "UNDEF") {
                 self.setState({
                     imageUrl: item.state
                 });
             }
+            else {
+                self.setState({
+                    imageUrl: null
+                });
+            }
         });
 
-        getItem('BedroomGoogleHub_MediaTitle').then((item) => {
+        getItem(mediaTitleItemName).then((item) => {
             if (item) {
                 self.setState({
                     title: item.state
@@ -97,7 +132,7 @@ class NestHub extends React.Component {
             }
         });
 
-        getItem('BedroomGoogleHub_Subtitle').then((item) => {
+        getItem(subtitleItemName).then((item) => {
             if (item) {
                 self.setState({
                     subtitle: item.state
@@ -107,26 +142,25 @@ class NestHub extends React.Component {
     }
 
     render() {
-        const { app, currentTime, duration, album, artist, imageUrl, title, subtitle } = this.state;
+        const { app, mediaType, currentTime, duration, album, artist, imageUrl, title, subtitle } = this.state;
 
         var percent = 0;
         if (currentTime !== null) {
-            percent = Math.floor((parseInt(currentTime) / parseInt(duration)) * 100);
+            percent = Math.floor((currentTime / duration) * 100);
         }
 
         return (
             <>
-            {(app === "Google Play Music" || app === "YouTube" || app === "YouTube Music" || app === "Plex") &&
+                {(app === "Google Play Music" || app === "YouTube" || app === "YouTube Music" || app === "Plex") &&
                     <div className="card">
-                        <div className="card-header border-none">
-                            Nest Hub
-                        </div>
-                        <img src={imageUrl} class="card-img-top"></img>
+                        {imageUrl &&
+                            <img src={imageUrl} class="card-img-top"></img>
+                        }
                         <ul className="list-group list-group-flush">
                             <li class="list-group-item d-flex flex-row justify-content-center">
                                 <span className="text-center">{title}</span>
                             </li>
-                            {app === "Google Play Music" &&
+                            {app === "Google Play Music" || (app === "Plex" && mediaType === "MUSIC_TRACK") &&
                                 <li class="list-group-item d-flex flex-row justify-content-center">
                                     <span>{artist} - {album}</span>
                                 </li>
@@ -142,8 +176,8 @@ class NestHub extends React.Component {
                                 </div>
                             </li>
                             <li class="list-group-item d-flex flex-row justify-content-between">
-                                <span>{timeCode(parseInt(currentTime))}</span>
-                                <span>{timeCode(parseInt(duration))}</span>
+                                <span>{timeCode(currentTime)}</span>
+                                <span>{timeCode(duration)}</span>
                             </li>
                         </ul>
                     </div>
