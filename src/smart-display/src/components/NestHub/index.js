@@ -2,10 +2,11 @@ import React from 'react';
 import { getItem } from '../../utils/openhab-client';
 
 const timeCode = (seconds) => {
-    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(seconds / 60 / 60);
+    const minutes = Math.floor((seconds - (hours * 60 * 60)) / 60);
     const secondsRemaining = seconds % 60;
 
-    return <>{minutes}:{secondsRemaining.toString().padStart(2, '0')}</>;
+    return <>{hours > 0 ? <>{hours}:</> : null}{hours > 0 ? minutes.toString().padStart(2, '0') : minutes}:{secondsRemaining.toString().padStart(2, '0')}</>;
 }
 
 class NestHub extends React.Component {
