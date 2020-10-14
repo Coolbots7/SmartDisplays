@@ -115,7 +115,7 @@ class NestHub extends React.Component {
 
         return (
             <>
-                {(app === "Google Play Music" || app === "YouTube" || app === "YouTube Music") &&
+            {(app === "Google Play Music" || app === "YouTube" || app === "YouTube Music" || app === "Plex") &&
                     <div className="card">
                         <div className="card-header border-none">
                             Nest Hub
