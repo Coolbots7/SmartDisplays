@@ -68,7 +68,16 @@ const SmartScreen = () => (
                         <OctoPrint />
                     </div>
                     <div className="mt-3">
-                        <NestHub />
+                        <NestHub 
+                            appItemName="BedroomGoogleHub_App"
+                            mediaTypeItemName="BedroomGoogleHub_MediaType"
+                            currentTimeItemName="BedroomGoogleHub_CurrentTime"
+                            durationItemName="BedroomGoogleHub_Duration"
+                            albumNameItemName="BedroomGoogleHub_AlbumName"
+                            mediaArtistItemName="BedroomGoogleHub_MediaArtist"
+                            imageURLItemName="BedroomGoogleHub_ImageURL"
+                            mediaTitleItemName="BedroomGoogleHub_MediaTitle"
+                            subtitleItemName="BedroomGoogleHub_Subtitle" />
                     </div>
                 </div>
             </div>
