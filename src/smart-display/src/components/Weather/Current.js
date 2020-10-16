@@ -62,7 +62,7 @@ class Current extends React.Component {
                         <div className="d-flex flex-row justify-content-around">
                             <div className="d-flex flex-column text-center">
                                 <span className="weather-label-primary">UVI</span>
-                                <span className="weather-value-secondary" style={{ color: getUVIColor(uvi) }}>{Math.round(uvi)} {getUVIDescription(uvi)}</span>
+                                <span className="weather-value-secondary" style={{ color: getUVIColor(uvi) }}>{Math.ceil(uvi)} {getUVIDescription(uvi)}</span>
                             </div>
                             <div className="d-flex flex-column text-center">
                                 <span className="weather-label-primary">Rain</span>

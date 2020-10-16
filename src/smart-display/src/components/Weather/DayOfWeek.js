@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { getOpenWeatherMapData } from '../../utils/weather-client';
+import { getUVIColor } from './utils/uvi-util';
 
-//TODO add midday UVI
 class DayOfWeek extends React.Component {
     static propTypes = {
         date: PropTypes.object.isRequired,
@@ -69,19 +69,22 @@ class DayOfWeek extends React.Component {
             const high = data.daily[dayIndex].feels_like.day;
             const low = data.daily[dayIndex].feels_like.night;
             const icon = data.daily[dayIndex].weather[0].icon;
+            const uvi = data.daily[dayIndex].uvi;
 
             return (
                 <div className="weather-day-of-week">
                     <div className="day bold">{day_string}</div>
-                    <div className="date">{date_string}</div>
+                    <div className="date text-nowrap">{date_string}</div>
                     <div><img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} alt="weather" /></div>
-                    <div className="temperature bold">{Math.round(high)}&deg;</div>
-                    <div className="temperature">{Math.round(low)}&deg;</div>
+                    <div className="weather-value-secondary bold" style={{ color: getUVIColor(uvi) }}>{Math.ceil(uvi)}</div>
+                    <div className="temperature bold">H {Math.round(high)}&deg;</div>
+                    <div className="temperature">L {Math.round(low)}&deg;</div>
+
                 </div>
             );
         }
 
-        return <div style={{width: '2rem'}}></div>;
+        return <div style={{ width: '2rem' }}></div>;
     }
 };
 
